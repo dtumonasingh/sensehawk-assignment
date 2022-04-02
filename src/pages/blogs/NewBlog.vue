@@ -1,3 +1,3 @@
 <template>
-    HIGHLIGHT
+    NEW BLOG
 </template>
