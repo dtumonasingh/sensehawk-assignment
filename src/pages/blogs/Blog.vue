@@ -2,6 +2,7 @@
   <div class="blog">
     <div class="blog-actions">
       <button @click="deleteBlog">delete</button>
+      <button @click="updateBlog">update</button>
     </div>
     <div v-if="blog">
       <h1>
@@ -32,6 +33,9 @@ export default {
     },
   },
   methods: {
+    updateBlog() {
+      this.$router.push(`/update-blog/${this.id}`);
+    },
     deleteBlog() {
       this.$store.dispatch("blogs/deleteBlog", this.id);
       this.$router.push("/blogs");

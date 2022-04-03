@@ -15,6 +15,7 @@ const router = createRouter({
         { path: '/blogs', component: BlogList },
         { path: '/blogs/:id', component: Blog, props: true},
         { path: '/new-blog', component: NewBlog },
+        { path: '/update-blog/:id', component: NewBlog, props: true},
         { path: '/highlights', component: HighlightList },
         { path: '/highlights/:id', component: Highlight },
         { path: '/:notFound(.*)', component: NotFound }

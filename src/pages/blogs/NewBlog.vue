@@ -29,18 +29,24 @@
         rows="4"
       ></textarea>
 
-      <button class="button" @click="create">Create</button>
+      <button class="button" @click="save">
+        {{ buttonCaption }}
+      </button>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
+  props: ["id"],
   data() {
     return {
+      isUpdateBlog: false,
+      isNewBlog: false,
       blog: {
+        id: "",
         title: "",
         author: "",
         content: "",
@@ -51,11 +57,39 @@ export default {
     ...mapActions({
       createBlog: "blogs/createBlog",
     }),
+    ...mapGetters({
+      getBlog: "blogs/getBlog",
+    }),
+    buttonCaption() {
+      return this.isUpdateBlog ? "Update" : "Create";
+    },
+  },
+  beforeUpdate() {
+    this.initializeData();
+  },
+  created() {
+    this.initializeData();
   },
   methods: {
-    create() {
-      this.$store.dispatch("blogs/createBlog", this.blog);
-      this.$router.push('/blogs') 
+    initializeData() {
+      let path = this.$router.currentRoute.value.path;
+      if (path.indexOf("/new-blog") > -1) {
+        this.isNewBlog = true;
+      } else if (path.indexOf("/update-blog") > -1) {
+        this.isUpdateBlog = true;
+      }
+
+      if (!this.isNewBlog) {
+        let blog = this.getBlog(this.id);
+        this.blog.id = blog.id;
+        this.blog.title = blog.title;
+        this.blog.author = blog.author;
+        this.blog.content = blog.content;
+      }
+    },
+    save() {
+      this.$store.dispatch("blogs/createOrUpdate", this.blog);
+      this.$router.push("/blogs");
     },
   },
 };
