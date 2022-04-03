@@ -4,8 +4,9 @@
 
         <ul v-if="hasBlogs">
             <li v-for="blog in blogs" :key="blog.id">
-                <router-link :to="`/blogs/${blog.id}`"> {{ blog.title }} | {{ blog.author}} </router-link>
-                
+                <router-link :to="`/blogs/${blog.id}`"> 
+                <bloglist-item :blog="blog"/>
+                </router-link>                
             </li>
             </ul>
             <h3 v-else>No Blogs Found </h3>
@@ -14,7 +15,12 @@
 
 <script>
 
+import BlogListItem from '@/components/BlogListItem';
+
 export default {
+    components: {
+        'bloglist-item' : BlogListItem
+    },
     computed: {
         blogs() {
             return this.$store.getters['blogs/blogs'];
@@ -26,3 +32,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+a {
+    text-decoration: none;
+}
+</style>

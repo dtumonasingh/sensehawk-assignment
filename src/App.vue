@@ -35,10 +35,11 @@ body {
 
 #main-content{
     position: fixed;
-    left: 100px;
+    left: 280px;
     top:60px;
     height: 100%;
     padding: 20px;
+    max-width: 800px;
 }
 
 ul {

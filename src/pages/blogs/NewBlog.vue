@@ -26,7 +26,7 @@
         v-model="blog.content"
         placeholder="Content"
         type="text"
-        rows="4"
+        rows="30"
       ></textarea>
 
       <button class="button" @click="save">
@@ -107,14 +107,26 @@ export default {
 }
 
 input {
+  border-radius: 5px;
+  border: 1px solid rgb(158, 157, 157);
   margin: 5px 0px 5px 0px;
+  width: 700px;
+  height: 30px;
 }
 
 textarea {
+  border-radius: 5px;
+  border: 1px solid rgb(158, 157, 157);
   margin: 5px 0px 5px 0px;
+  width: 700px;
+  font-family: "Roboto", sans-serif;
 }
 
 button {
   margin: 5px 0px 5px 0px;
+  border-radius: 5px;
+  border: 1px solid rgb(158, 157, 157);
+  width: 700px;
+  height: 30px;
 }
 </style>

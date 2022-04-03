@@ -5,9 +5,9 @@
 
 <style scoped>
 #header {
-    border-bottom: 1px grey solid;
+    border-bottom: solid 1px #ccc;
     position: fixed;
-    left: 100px;
+    left: 280px;
     width: 100%;
     height: 60px;
 }
