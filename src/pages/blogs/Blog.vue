@@ -1,5 +1,7 @@
 <template>
   <div class="blog">
+      <ThePopup />
+
     <div class="blog-actions">
       <button @click="deleteBlog">delete</button>
       <button @click="updateBlog">update</button>
@@ -12,17 +14,21 @@
       <h3>
         {{ blog.author }}
       </h3>
-      <p>
+      <div id="blog-content" @mouseup="highlight">
         {{ blog.content }}
-      </p>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
+import ThePopup from "@/components/ThePopup.vue";
 
 export default {
+  components: {
+    ThePopup,
+  },
   props: ["id"],
   computed: {
     ...mapGetters({
@@ -33,6 +39,22 @@ export default {
     },
   },
   methods: {
+      ...mapActions({
+          addHighlight: "highlights/addHighlight"
+      }),
+    highlight(event) {
+    var text = "";
+    if (window.getSelection) {
+        text = window.getSelection().toString();
+    } else if (document.selection && document.selection.type != "Control") {
+        text = document.selection.createRange().text;
+    }
+     if(text.indexOf(' ') <=-1)
+     {
+         let highlight = { value: text, blogId: this.id}
+         this.addHighlight(highlight);
+     }
+    },
     updateBlog() {
       this.$router.push(`/update-blog/${this.id}`);
     },

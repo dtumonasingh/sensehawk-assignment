@@ -8,5 +8,8 @@ export default {
     getBlog: (state) => (id) => {
         console.log(id);
         return state.blogs.find(blog => blog.id === id)
+    },
+    isPopupOpen(state) {
+        return state.blogs.isPopupOpen;
     }
 };

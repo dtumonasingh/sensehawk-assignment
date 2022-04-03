@@ -6,16 +6,17 @@ export default {
     namespaced: true,
     state() {
         return {
-            highlights: [
-                {
-                    id: '1',
-                    value: 'lorem'
-                },
-                {
-                    id: '2',
-                    value: 'highlights',
-                }
-            ]
+            highlights: [{
+                id:'1',
+                value:'lorem',
+                blogIds: ['1','2']
+            },
+            {
+                id:'2',
+                value:'picsum',
+                blogIds: ['1','3']
+            }
+        ]
         }
 
     },

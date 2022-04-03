@@ -19,5 +19,11 @@ export default {
             return blog.id === id;
        })
        if (index !== -1) state.blogs.splice(index, 1);
-    }
+    },
+    openClosePopup(state, value) {
+       if(value == 'open')
+            state.blogs.isPopupOpen = true;
+        else if(value == 'close')
+            state.blogs.isPopupOpen = false;
+      }
 };
