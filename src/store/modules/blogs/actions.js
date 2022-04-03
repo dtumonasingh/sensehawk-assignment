@@ -1,6 +1,6 @@
 export default {
-    createBlog(context, blog) {
-        context.commit('createBlog', blog)
+    createOrUpdate(context, blog) {
+        context.commit('createOrUpdate', blog)
       },
       deleteBlog(context, id) {
         context.commit('deleteBlog', id)

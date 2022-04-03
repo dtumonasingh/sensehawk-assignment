@@ -2,7 +2,6 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 
 import Blog from '@/pages/blogs/Blog';
 import BlogList from '@/pages/blogs/BlogList';
-import NewBlog from '@/pages/blogs/NewBlog';
 import Highlight from '@/pages/highlights/Highlight';
 import HighlightList from '@/pages/highlights/HighlightList';
 
@@ -14,7 +13,8 @@ const router = createRouter({
         { path: '/', redirect: '/blogs' },
         { path: '/blogs', component: BlogList },
         { path: '/blogs/:id', component: Blog, props: true},
-        { path: '/new-blog', component: NewBlog },
+        { path: '/new-blog', component: Blog },
+        { path: '/update-blog/:id', component: Blog, props: true },
         { path: '/highlights', component: HighlightList },
         { path: '/highlights/:id', component: Highlight },
         { path: '/:notFound(.*)', component: NotFound }
