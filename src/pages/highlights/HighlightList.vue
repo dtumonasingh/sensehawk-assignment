@@ -3,7 +3,7 @@
         HIGHLIGHTS
         <ul v-if="hasHighlights">
             <li v-for="highlight in highlights" :key="highlight.id">
-               <router-link :to="highlight.route"> {{ highlight.value }} </router-link>
+               <router-link :to="`/highlights/${highlight.id}`"> {{ highlight.value }} </router-link>
             </li>
         </ul>
         <h3 v-else>No highlights Found </h3>

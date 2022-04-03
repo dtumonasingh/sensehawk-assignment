@@ -9,13 +9,11 @@ export default {
             highlights: [
                 {
                     id: '1',
-                    value: 'lorem',
-                    route: '/highlights/1'
+                    value: 'lorem'
                 },
                 {
                     id: '2',
                     value: 'highlights',
-                    route: '/highlights/2'
                 }
             ]
         }

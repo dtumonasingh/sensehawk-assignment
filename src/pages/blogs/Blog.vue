@@ -14,16 +14,10 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import {  mapGetters } from 'vuex';
 
 export default {
   props: ["id"],
-  beforeMount() {
-      debugger;
-  },
-  mounted() {
-      debugger;
-  },
   computed: {
     ...mapGetters({
         getBlog : 'blogs/getBlog'

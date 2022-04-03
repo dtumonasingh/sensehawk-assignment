@@ -4,7 +4,7 @@
 
         <ul v-if="hasBlogs">
             <li v-for="blog in blogs" :key="blog.id">
-                <router-link :to="blog.route"> {{ blog.title }} | {{ blog.author}} </router-link>
+                <router-link :to="`/blogs/${blog.id}`"> {{ blog.title }} | {{ blog.author}} </router-link>
                 
             </li>
             </ul>
