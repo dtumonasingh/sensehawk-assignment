@@ -46,4 +46,9 @@ ul {
     padding:0px;
     list-style: none;
 }
+
+a {
+    text-decoration: none;
+    color: black;
+}
 </style>

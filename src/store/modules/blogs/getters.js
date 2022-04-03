@@ -6,7 +6,6 @@ export default {
         return state.blogs && state.blogs.length > 0;
     },
     getBlog: (state) => (id) => {
-        console.log(id);
         return state.blogs.find(blog => blog.id === id)
     },
     isPopupOpen(state) {

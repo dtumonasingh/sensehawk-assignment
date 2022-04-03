@@ -1,17 +1,13 @@
 <template>
     <div>
-        HIGHLIGHTS
+        <router-link to="/highlights">HIGHLIGHTS</router-link>
         <ul v-if="hasHighlights">
             <li v-for="highlight in highlights" :key="highlight.id">
                <router-link :to="`/highlights/${highlight.id}`"> {{ highlight.value }} </router-link>
-               <ul id="blogs-list">
-                   <li v-for="blog in highlight.blogIds" :key="blog" class="highlight-blog-list">
-                       {{ blog }},
-                   </li>
-               </ul>
             </li>
         </ul>
         <h3 v-else>No highlights Found </h3>
+        <router-view></router-view>        
     </div>
 </template>
 

@@ -5,7 +5,7 @@
         <ul v-if="hasBlogs">
             <li v-for="blog in blogs" :key="blog.id">
                 <router-link :to="`/blogs/${blog.id}`"> 
-                <bloglist-item :blog="blog"/>
+                <bloglist-item :id="blog.id"/>
                 </router-link>                
             </li>
             </ul>
@@ -24,7 +24,6 @@ export default {
     computed: {
         blogs() {
             return this.$store.getters['blogs/blogs'];
-
         },
         hasBlogs() {
             return this.$store.getters['blogs/hasBlogs'];
@@ -34,7 +33,5 @@ export default {
 </script>
 
 <style scoped>
-a {
-    text-decoration: none;
-}
+
 </style>
