@@ -55,6 +55,7 @@ export default {
   methods: {
     create() {
       this.$store.dispatch("blogs/createBlog", this.blog);
+      this.$router.push('/blogs') 
     },
   },
 };
