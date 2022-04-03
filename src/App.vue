@@ -4,19 +4,16 @@
   <div id="main-content">
     <router-view></router-view>
   </div>
-  <the-panel></the-panel>
 </template>
 
 <script>
 import TheHeader from "@/components/layout/TheHeader";
 import TheSidebar from "@/components/layout/TheSidebar";
-import ThePanel from "@/components/layout/ThePanel";
 
 export default {
   components: {
     TheHeader,
-    TheSidebar,
-    ThePanel
+    TheSidebar
   },
 };
 </script>
@@ -40,8 +37,12 @@ body {
     position: fixed;
     left: 100px;
     top:60px;
-    right:251px;
     height: 100%;
-    width: 100%;
+    padding: 20px;
+}
+
+ul {
+    padding:0px;
+    list-style: none;
 }
 </style>

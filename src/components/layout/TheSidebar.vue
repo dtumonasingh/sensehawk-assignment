@@ -21,6 +21,7 @@
   top: 0;
   left: 0;
   border-right: 1px grey solid;
+  padding: 10px;
 }
 
 #sidebar-actions {
@@ -30,11 +31,6 @@
     align-content: center;
     height: 100%;
     
-}
-
-ul {
-    padding:0px;
-    list-style: none;
 }
 
 li {
