@@ -1,20 +1,22 @@
 <template>
   <div class="blog">
-      <ThePopup />
+    <ThePopup />
 
-    <div class="blog-actions">
-      <button @click="deleteBlog">delete</button>
-      <button @click="updateBlog">update</button>
+    <div class="blog--actions">
+      <button class="blog--actions__delete" @click="deleteBlog">delete</button>
+      <button class="blog--actions__update" @click="updateBlog">update</button>
     </div>
-    <div v-if="blog">
-      <h1>
-        {{ blog.title }}
-      </h1>
 
-      <h3>
+    <div class="blog--content" v-if="blog">
+      <h2 class="blog--content__title">
+        {{ blog.title }}
+      </h2>
+
+      <h5 class="blog--content__author">
         {{ blog.author }}
-      </h3>
-      <div id="blog-content" @mouseup="highlight">
+      </h5>
+
+      <div class="blog--content__content" @mouseup="highlight">
         {{ blog.content }}
       </div>
     </div>
@@ -39,21 +41,21 @@ export default {
     },
   },
   methods: {
-      ...mapActions({
-          addHighlight: "highlights/addHighlight"
-      }),
+    ...mapActions({
+      addHighlight: "highlights/addHighlight",
+    }),
     highlight(event) {
-    var text = "";
-    if (window.getSelection) {
+      var text = "";
+      if (window.getSelection) {
         text = window.getSelection().toString();
-    } else if (document.selection && document.selection.type != "Control") {
+      } else if (document.selection && document.selection.type != "Control") {
         text = document.selection.createRange().text;
-    }
-     if(text.indexOf(' ') <=-1)
-     {
-         let highlight = { value: text, blogId: this.id}
-         this.addHighlight(highlight);
-     }
+      }
+      debugger;
+      if (text.indexOf(" ") <= -1) {
+        let highlight = { value: text, blogId: this.id };
+        this.addHighlight(highlight);
+      }
     },
     updateBlog() {
       this.$router.push(`/update-blog/${this.id}`);
@@ -71,4 +73,24 @@ export default {
   display: flex;
   flex-direction: column;
 }
+
+.blog--actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.blog--actions button {
+    margin: 0px 5px 0 5px;
+}
+
+.blog--content__title {
+    margin: 15px 0px 15px 0px;
+}
+
+.blog--content__author {
+    margin: 10px 0px 10px 0px;
+}
+
 </style>

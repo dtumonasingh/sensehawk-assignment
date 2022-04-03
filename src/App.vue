@@ -51,4 +51,16 @@ a {
     text-decoration: none;
     color: black;
 }
+
+ button {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+
+button:hover {
+    border-radius: 5px;
+    border: 1px solid black;
+    padding: 5px;
+}
 </style>

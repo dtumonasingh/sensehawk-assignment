@@ -64,9 +64,6 @@ export default {
       return this.isUpdateBlog ? "Update" : "Create";
     },
   },
-  beforeUpdate() {
-    this.initializeData();
-  },
   created() {
     this.initializeData();
   },
@@ -78,7 +75,6 @@ export default {
       } else if (path.indexOf("/update-blog") > -1) {
         this.isUpdateBlog = true;
       }
-
       if (!this.isNewBlog) {
         let blog = this.getBlog(this.id);
         this.blog.id = blog.id;

@@ -2,6 +2,8 @@
   <div class="highlight--blogs">
     <div class="highlight--blogs__item" v-for="blog in blogs" :key="blog.id">
         <p> {{blog.content}} </p>
+
+        <router-link :to="`/blogs/${blog.id}`"> <button>preview</button></router-link>
     </div>
   </div>
 </template>
@@ -36,7 +38,7 @@ export default {
  .highlight--blogs__item {
      border: 1px solid #ccc;
      margin: 10px 0px 10px 0px;
-     overflow: clip;
-     height: 80px;
+     padding: 10px;
  }
+
 </style>
