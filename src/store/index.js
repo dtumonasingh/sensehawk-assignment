@@ -8,7 +8,6 @@ const store = createStore({
     state() {
         return {
           isPopupOpen: false,
-          popupPosition: { x: 0, y: 0 },
           blogs: [
             {
               id: "1",

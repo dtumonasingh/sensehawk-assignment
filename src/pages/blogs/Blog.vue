@@ -62,75 +62,36 @@ export default {
     }),
     onSelectWord(event) {
       this.addHighlight();
-      this.updatedContendWithHighlightedWord();
     },
-    isWord() {
-      
-      let text = this.selectedWord.value;
-      let start = this.selectedWord.startOffset_text;
-      let end = this.selectedWord.endOffset_text;
-
+    isWord(text) {
       if (text.includes(" ")) return false;
-      if (text.length < 0) return false;
-      if (
-         this.blog.content[start- 1] != " " ||
-         this.blog.content[end]!= " "
-      ) return false;
-      
-      
-        return true;
+      if (text.length <= 0) return false;
+      return true;
     },
     highlight(event) {
       var userSelection = window.getSelection();
-
       //value of the word
       let text = userSelection.toString();
-
-      //position of word
-      let popupPosition = { x: event.clientX, y: event.clientY };
-
-      //create object for the current word details
-      this.selectedWord = {
-        value: text,
-        blogId: this.id,
-        popupPosition: popupPosition,
-        startOffset_text: userSelection.getRangeAt(0).startOffset,
-        endOffset_text: userSelection.getRangeAt(0).endOffset,
-      };
-
-      if (this.isWord()) {
+      if (this.isWord(text)) {
+        let range = userSelection.getRangeAt(0);
+        var newNode = document.createElement("div");
+    newNode.setAttribute(
+       "style",
+       "background-color: yellow; display: inline;"
+    );
+    range.surroundContents(newNode);
+        let popupPosition = { x: event.clientX, y: event.clientY };
+        this.selectedWord = {
+          value: text,
+          blogId: this.id,
+          popupPosition: popupPosition,
+        };
         //openPopup
         this.openClosePopup({ value: "open" });
-
         //send details of current word selected
         this.setSelectedWord(this.selectedWord);
       }
     },
-
-    updatedContendWithHighlightedWord() {
-      let startOffset_text = this.selectedWord.startOffset_text;
-      let endOffset_text = this.selectedWord.endOffset_text;
-
-      const matches = [
-        {
-          Start: startOffset_text,
-          End: endOffset_text,
-        },
-      ];
-      let str = this.blog.content;
-      for (let i = matches.length - 1; i >= 0; i--) {
-        str =
-          str.slice(0, matches[i].Start) +
-          `<span style="background-color: yellow; display: inline;">${str.substring(
-            matches[i].Start,
-            matches[i].End
-          )}</span>` +
-          str.slice(matches[i].End);
-      }
-      this.blog.content = str;
-      this.$store.dispatch("createOrUpdate", this.blog);
-    },
-
     updateBlog() {
       this.$router.push(`/update-blog/${this.id}`);
     },
