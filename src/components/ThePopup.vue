@@ -9,29 +9,31 @@ import { mapActions, mapGetters } from "vuex";
 
 export default {
   watch: {
-    isPopupOpen() {
-      if (this.isPopupOpen)
-        document.getElementById("popup").style.display = "block"; 
-        else   
-        document.getElementById("popup").style.display = "none";   
+    isPopupOpen() {  
+      let popup = document.getElementById("popup");
+      if (this.isPopupOpen) {        
+        popup.style.display = "block";
+        //popup.style.top = `${this.popupPosition.y}px`;
+        //popup.style.position = `${this.popupPosition.x}px`
+      } else {
+        popup.style.display = "none";
+      }
     },
-  },
-  updated() {
   },
   computed: {
     ...mapGetters({
       isPopupOpen: "isPopupOpen",
+      popupPosition: "getPopupPosition"
     }),
   },
   methods: {
     ...mapActions({
       openClosePopup: "openClosePopup",
-      
     }),
     click() {
-    	this.$emit('onClick', 'bye')
-      this.openClosePopup({ value: "close" }); 
-    }
+      this.$emit("onClick", "bye");
+      this.openClosePopup({ value: "close" });
+    },
   },
   updated() {},
 };

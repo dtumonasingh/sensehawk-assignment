@@ -12,7 +12,7 @@ export default {
     return state.isPopupOpen;
   },
   getPopupPosition(state) {
-    return state.popupPosition;
+    return state.selectedWord.popupPosition;
   },
   highlights(state) {
     return state.highlights;
