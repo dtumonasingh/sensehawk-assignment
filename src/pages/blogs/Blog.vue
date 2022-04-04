@@ -1,6 +1,6 @@
 <template>
   <div class="blog">
-    <ThePopup />
+    <ThePopup @onClick="onSelectWord"/>
 
     <div class="blog--actions">
       <button class="blog--actions__delete" @click="deleteBlog">delete</button>
@@ -31,30 +31,18 @@ export default {
   components: {
     ThePopup,
   },
-  props: ["id"],
-  mounted() {
-    var array = [];
-    var spanarray = [];
-    var content = document.getElementById("mycontent");
-    var words = content.innerHTML.split(" ");
-    //debugger;
-
-    for (var i = 0; i < words.length; i++) {
-      // array.push(words[i]);
-      var span = document.createElement("span");
-      var textNode = document.createTextNode(words[i]);
-      span.appendChild(textNode);
-      span.setAttribute("id", i);
-      span.setAttribute("class", "word");
-      spanarray.push(span);
-    }
-    content.innerHTML = "";
-    for (let i = 0; i < words.length; i++) {
-      content.appendChild(spanarray[i]);
-      var textNode = document.createTextNode(" ");
-      content.appendChild(textNode);
-    }
+  data() {
+    return {
+      selectedWord: {
+        value: "",
+        blogId: this.id,
+        popupPosition: "",
+        startOffset_text: "",
+        endOffset_text: "",
+      },
+    };
   },
+  props: ["id"],
   computed: {
     ...mapGetters({
       getBlog: "getBlog",
@@ -67,32 +55,57 @@ export default {
     ...mapActions({
       addHighlight: "addHighlight",
       openClosePopup: "openClosePopup",
-      setSelectedWord: "setSelectedWord"
+      setSelectedWord: "setSelectedWord",
     }),
-
+    onSelectWord(event){
+      this.addHighlight();
+      this.updatedContendWithHighlightedWord();
+    },
     highlight(event) {
       var userSelection = window.getSelection();
 
       //openPopup
-      this.openClosePopup({value:'open'});
-
-      //send details of current word selected
+      this.openClosePopup({ value: "open" });
 
       //position of word
       let popupPosition = { x: event.clientX, y: event.clientY };
 
-      //id of the word
-      let wordId = userSelection.anchorNode.parentElement.getAttribute('id');
-
       //value of the word
-      let text = userSelection.anchorNode.parentElement.innerText;
+      let text = userSelection.toString();
 
       //create object for the current word details
-      let selectedWord = { value: text, blogId: this.id, wordId: wordId , popupPosition: popupPosition};
+      this.selectedWord = {
+        value: text,
+        blogId: this.id,
+        popupPosition: popupPosition,
+        startOffset_text: userSelection.getRangeAt(0).startOffset,
+        endOffset_text: userSelection.getRangeAt(0).endOffset,
+      };
 
-      //set selectedWordDetails
-      this.setSelectedWord(selectedWord);
-      
+      //send details of current word selected
+      this.setSelectedWord(this.selectedWord);
+    },
+
+    updatedContendWithHighlightedWord() {
+      let startOffset_text = this.selectedWord.startOffset_text;
+      let endOffset_text = this.selectedWord.endOffset_text;
+      let blogId = this.blogId;
+
+      const matches = [
+        {
+          Start: startOffset_text,
+          End: endOffset_text,
+        },
+      ];
+      let str = this.blog.content;
+      for (let i = matches.length - 1; i >= 0; i--) {
+        str =
+          str.slice(0, matches[i].Start) +
+          `<pre>${str.substring(matches[i].Start, matches[i].End)}</pre>` +
+          str.slice(matches[i].End);
+      }
+      this.blog.content = str;
+      this.$store.dispatch("createOrUpdate", this.blog);
     },
 
     updateBlog() {

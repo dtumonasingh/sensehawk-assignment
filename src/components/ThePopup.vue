@@ -1,6 +1,6 @@
 <template>
   <div id="popup">
-    <button @click="onClick">highlight</button>
+    <button @click="click">highlight</button>
   </div>
 </template>
 
@@ -11,9 +11,12 @@ export default {
   watch: {
     isPopupOpen() {
       if (this.isPopupOpen)
-        document.getElementById("popup").style.display = "block";      
-      document.getElementById("popup").style.display = "none";
+        document.getElementById("popup").style.display = "block"; 
+        else   
+        document.getElementById("popup").style.display = "none";   
     },
+  },
+  updated() {
   },
   computed: {
     ...mapGetters({
@@ -23,12 +26,12 @@ export default {
   methods: {
     ...mapActions({
       openClosePopup: "openClosePopup",
-      addHighlight: "addHighlight",
+      
     }),
-    onClick() {
-      this.addHighlight();
-      this.openClosePopup({ value: "close" });
-    },
+    click() {
+    	this.$emit('onClick', 'bye')
+      this.openClosePopup({ value: "close" }); 
+    }
   },
   updated() {},
 };

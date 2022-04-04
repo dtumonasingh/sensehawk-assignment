@@ -10,7 +10,7 @@ export default {
   },
   addHighlight(context) {
     context.commit("addHighlight");
-    context.commit("addHighlightedWordToBlog");
+    context.commit("addHighlightedWordToBlog");    
   },
   setSelectedWord(context, payload) {
     context.commit("setSelectedWord", payload);
