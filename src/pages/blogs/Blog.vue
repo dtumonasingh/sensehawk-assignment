@@ -40,20 +40,47 @@ export default {
       return this.getBlog(this.id);
     },
   },
+  //   created() {
+  //     this.hightlightWords();
+  //   },
+  //   updated() {
+  //     this.hightlightWords();
+  //   },
   methods: {
     ...mapActions({
       addHighlight: "highlights/addHighlight",
     }),
+    hightlightWords() {
+      let highlights = this.$store.getters["highlights/highlights"];
+      highlights.map((highlight) => {
+        this.highlightRange(highlight.range);
+      });
+    },
+    highlightRange(range, popupPosition) {
+      this.$store.dispatch("blogs/openClosePopup", {
+        value: "open",
+        position: popupPosition,
+      });
+
+      var newNode = document.createElement("span");
+      newNode.setAttribute("style", "background-color: yellow;");
+      debugger;
+      range.surroundContents(newNode);
+      console.log(window.getSelection().getRangeAt(0).startOffset);
+    },
     highlight(event) {
       var text = "";
       if (window.getSelection) {
         text = window.getSelection().toString();
-      } else if (document.selection && document.selection.type != "Control") {
-        text = document.selection.createRange().text;
       }
-      debugger;
+      var userSelection = window.getSelection().getRangeAt(0);
+      let x = event.clientX - 350;
+      let y = event.clientY - 110;
+      let popupPosition = { x: x, y: y };
+      this.highlightRange(userSelection, popupPosition);
+
       if (text.indexOf(" ") <= -1) {
-        let highlight = { value: text, blogId: this.id };
+        let highlight = { value: text, blogId: this.id, range: userSelection };
         this.addHighlight(highlight);
       }
     },
@@ -68,29 +95,29 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .blog {
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .blog--actions {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 100%;
 }
 
 .blog--actions button {
-    margin: 0px 5px 0 5px;
+  margin: 0px 5px 0 5px;
 }
 
 .blog--content__title {
-    margin: 15px 0px 15px 0px;
+  margin: 15px 0px 15px 0px;
 }
 
 .blog--content__author {
-    margin: 10px 0px 10px 0px;
+  margin: 10px 0px 10px 0px;
 }
-
 </style>

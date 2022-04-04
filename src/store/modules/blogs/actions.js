@@ -5,7 +5,7 @@ export default {
   deleteBlog(context, id) {
     context.commit("deleteBlog", id);
   },
-  openClosePopup(context, value) {
-    context.commit("openClosePopup", value);
+  openClosePopup(context, payload) {
+    context.commit("openClosePopup", payload);
   },
 };

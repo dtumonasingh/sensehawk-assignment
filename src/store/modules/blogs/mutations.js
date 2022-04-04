@@ -1,29 +1,30 @@
 export default {
-    createOrUpdate(state, blog) {
-        let id = blog.id;
-        const blogExists = state.blogs.some(blog => blog.id === id);
-        if(blogExists){            
-            let index = state.blogs.findIndex((blog => blog.id == id));
-            state.blogs[index].title = blog.title;
-            state.blogs[index].author = blog.author;
-            state.blogs[index].content = blog.content;
-        }
-        else {
-            let id = 'id' + (new Date()).getTime();
-            blog.id = id;
-            state.blogs.push(blog);
-        }
-    },
-    deleteBlog(state, id) {
-        let index = state.blogs.findIndex(function(blog){
-            return blog.id === id;
-       })
-       if (index !== -1) state.blogs.splice(index, 1);
-    },
-    openClosePopup(state, value) {
-       if(value == 'open')
-            state.blogs.isPopupOpen = true;
-        else if(value == 'close')
-            state.blogs.isPopupOpen = false;
-      }
+  createOrUpdate(state, blog) {
+    let id = blog.id;
+    const blogExists = state.blogs.some((blog) => blog.id === id);
+    if (blogExists) {
+      let index = state.blogs.findIndex((blog) => blog.id == id);
+      state.blogs[index].title = blog.title;
+      state.blogs[index].author = blog.author;
+      state.blogs[index].content = blog.content;
+    } else {
+      let id = "id" + new Date().getTime();
+      blog.id = id;
+      state.blogs.push(blog);
+    }
+  },
+  deleteBlog(state, id) {
+    let index = state.blogs.findIndex(function (blog) {
+      return blog.id === id;
+    });
+    if (index !== -1) state.blogs.splice(index, 1);
+  },
+  openClosePopup(state, payload) {
+    if (payload.value == "open") {
+      state.blogs.isPopupOpen = true;
+      state.blogs.popupPosition = payload.position;
+    } else if (payload.value == "close") {
+      state.blogs.isPopupOpen = false;
+    }
+  },
 };

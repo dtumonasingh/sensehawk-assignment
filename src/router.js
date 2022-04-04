@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 
 import Blog from "@/pages/blogs/Blog";
 import BlogList from "@/pages/blogs/BlogList";
@@ -9,7 +9,7 @@ import HighlightList from "@/pages/highlights/HighlightList";
 import NotFound from "@/pages/NotFound";
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes: [
     { path: "/", redirect: "/blogs" },
     { path: "/blogs", component: BlogList },
@@ -19,7 +19,9 @@ const router = createRouter({
     {
       path: "/highlights",
       component: HighlightList,
-      children: [{ path: "/highlights/:id", component: Highlight, props: true }],
+      children: [
+        { path: "/highlights/:id", component: Highlight, props: true },
+      ],
     },
     { path: "/:notFound(.*)", component: NotFound },
   ],
