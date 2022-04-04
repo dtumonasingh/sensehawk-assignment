@@ -66,6 +66,8 @@ export default {
     isWord(text) {
       if (text.includes(" ")) return false;
       if (text.length <= 0) return false;
+      if(!text.match(/^[0-9a-zA-Z]+$/))
+      return false;
       return true;
     },
     highlight(event) {
