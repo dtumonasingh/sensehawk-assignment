@@ -1,6 +1,6 @@
 <template>
   <div class="blog">
-    <ThePopup @onClick="onSelectWord"/>
+    <ThePopup @onClick="onSelectWord" />
 
     <div class="blog--actions">
       <button class="blog--actions__delete" @click="deleteBlog">delete</button>
@@ -16,9 +16,12 @@
         {{ blog.author }}
       </h5>
 
-      <div id="mycontent" class="blog--content__content" @mouseup="highlight">
-        {{ blog.content }}
-      </div>
+      <div
+        id="mycontent"
+        class="blog--content__content"
+        @mouseup="highlight"
+        v-html="blog.content"
+      ></div>
     </div>
   </div>
 </template>
@@ -57,21 +60,34 @@ export default {
       openClosePopup: "openClosePopup",
       setSelectedWord: "setSelectedWord",
     }),
-    onSelectWord(event){
+    onSelectWord(event) {
       this.addHighlight();
       this.updatedContendWithHighlightedWord();
+    },
+    isWord() {
+      
+      let text = this.selectedWord.value;
+      let start = this.selectedWord.startOffset_text;
+      let end = this.selectedWord.endOffset_text;
+
+      if (text.includes(" ")) return false;
+      if (text.length < 0) return false;
+      if (
+         this.blog.content[start- 1] != " " ||
+         this.blog.content[end]!= " "
+      ) return false;
+      
+      
+        return true;
     },
     highlight(event) {
       var userSelection = window.getSelection();
 
-      //openPopup
-      this.openClosePopup({ value: "open" });
+      //value of the word
+      let text = userSelection.toString();
 
       //position of word
       let popupPosition = { x: event.clientX, y: event.clientY };
-
-      //value of the word
-      let text = userSelection.toString();
 
       //create object for the current word details
       this.selectedWord = {
@@ -82,14 +98,18 @@ export default {
         endOffset_text: userSelection.getRangeAt(0).endOffset,
       };
 
-      //send details of current word selected
-      this.setSelectedWord(this.selectedWord);
+      if (this.isWord()) {
+        //openPopup
+        this.openClosePopup({ value: "open" });
+
+        //send details of current word selected
+        this.setSelectedWord(this.selectedWord);
+      }
     },
 
     updatedContendWithHighlightedWord() {
       let startOffset_text = this.selectedWord.startOffset_text;
       let endOffset_text = this.selectedWord.endOffset_text;
-      let blogId = this.blogId;
 
       const matches = [
         {
@@ -101,7 +121,10 @@ export default {
       for (let i = matches.length - 1; i >= 0; i--) {
         str =
           str.slice(0, matches[i].Start) +
-          `<pre>${str.substring(matches[i].Start, matches[i].End)}</pre>` +
+          `<span style="background-color: yellow; display: inline;">${str.substring(
+            matches[i].Start,
+            matches[i].End
+          )}</span>` +
           str.slice(matches[i].End);
       }
       this.blog.content = str;
@@ -124,6 +147,10 @@ export default {
   display: flex;
   flex-direction: column;
   position: relative;
+}
+
+.highlight {
+  background-color: yellow;
 }
 
 .blog--actions {

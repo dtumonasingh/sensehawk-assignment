@@ -8,8 +8,7 @@
       {{ blog.author }}
     </p>
 
-    <p class="bloglist--content">
-      {{ blog.content }}
+    <p class="bloglist--content" v-html="blog.content">
     </p>
   </div>
 </template>

@@ -1,8 +1,7 @@
 <template>
   <div class="highlight--blogs">
     <div class="highlight--blogs__item" v-for="blog in blogs" :key="blog.id">
-        <p> {{blog.content}} </p>
-
+        <p v-html="blog.content"> </p>
         <router-link :to="`/blogs/${blog.id}`"> <button>preview</button></router-link>
     </div>
   </div>
