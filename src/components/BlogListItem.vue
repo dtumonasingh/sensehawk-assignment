@@ -21,7 +21,7 @@ export default {
   props: ["id"],
   computed: {
     ...mapGetters({
-      getBlog: "blogs/getBlog",
+      getBlog: "getBlog",
     }),
     blog() {
       return this.getBlog(this.id);

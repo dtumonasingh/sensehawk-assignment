@@ -55,10 +55,10 @@ export default {
   },
   computed: {
     ...mapActions({
-      createBlog: "blogs/createBlog",
+      createBlog: "createBlog",
     }),
     ...mapGetters({
-      getBlog: "blogs/getBlog",
+      getBlog: "getBlog",
     }),
     buttonCaption() {
       return this.isUpdateBlog ? "Update" : "Create";
@@ -84,7 +84,7 @@ export default {
       }
     },
     save() {
-      this.$store.dispatch("blogs/createOrUpdate", this.blog);
+      this.$store.dispatch("createOrUpdate", this.blog);
       this.$router.push("/blogs");
     },
   },

@@ -16,8 +16,8 @@ export default {
   props: ["id"],
   computed: {
     ...mapGetters({
-      getHighlight: "highlights/getHighlight",
-      getBlog: "blogs/getBlog"
+      getHighlight: "getHighlight",
+      getBlog: "getBlog"
     }),
     highlight() {
       return this.getHighlight(this.id);

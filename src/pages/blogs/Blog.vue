@@ -16,7 +16,7 @@
         {{ blog.author }}
       </h5>
 
-      <div class="blog--content__content" @mouseup="highlight">
+      <div id="mycontent" class="blog--content__content" @mouseup="highlight">
         {{ blog.content }}
       </div>
     </div>
@@ -32,63 +32,74 @@ export default {
     ThePopup,
   },
   props: ["id"],
+  mounted() {
+    var array = [];
+    var spanarray = [];
+    var content = document.getElementById("mycontent");
+    var words = content.innerHTML.split(" ");
+    //debugger;
+
+    for (var i = 0; i < words.length; i++) {
+      // array.push(words[i]);
+      var span = document.createElement("span");
+      var textNode = document.createTextNode(words[i]);
+      span.appendChild(textNode);
+      span.setAttribute("id", i);
+      span.setAttribute("class", "word");
+      spanarray.push(span);
+    }
+    content.innerHTML = "";
+    for (let i = 0; i < words.length; i++) {
+      content.appendChild(spanarray[i]);
+      var textNode = document.createTextNode(" ");
+      content.appendChild(textNode);
+    }
+  },
   computed: {
     ...mapGetters({
-      getBlog: "blogs/getBlog",
+      getBlog: "getBlog",
     }),
     blog() {
       return this.getBlog(this.id);
     },
   },
-  //   created() {
-  //     this.hightlightWords();
-  //   },
-  //   updated() {
-  //     this.hightlightWords();
-  //   },
   methods: {
     ...mapActions({
-      addHighlight: "highlights/addHighlight",
+      addHighlight: "addHighlight",
+      openClosePopup: "openClosePopup",
+      setSelectedWord: "setSelectedWord"
     }),
-    hightlightWords() {
-      let highlights = this.$store.getters["highlights/highlights"];
-      highlights.map((highlight) => {
-        this.highlightRange(highlight.range);
-      });
-    },
-    highlightRange(range, popupPosition) {
-      this.$store.dispatch("blogs/openClosePopup", {
-        value: "open",
-        position: popupPosition,
-      });
 
-      var newNode = document.createElement("span");
-      newNode.setAttribute("style", "background-color: yellow;");
-      debugger;
-      range.surroundContents(newNode);
-      console.log(window.getSelection().getRangeAt(0).startOffset);
-    },
     highlight(event) {
-      var text = "";
-      if (window.getSelection) {
-        text = window.getSelection().toString();
-      }
-      var userSelection = window.getSelection().getRangeAt(0);
-      let x = event.clientX - 350;
-      let y = event.clientY - 110;
-      let popupPosition = { x: x, y: y };
-      this.highlightRange(userSelection, popupPosition);
+      var userSelection = window.getSelection();
 
-      if (text.indexOf(" ") <= -1) {
-        let highlight = { value: text, blogId: this.id, range: userSelection };
-        this.addHighlight(highlight);
-      }
+      //openPopup
+      this.openClosePopup({value:'open'});
+
+      //send details of current word selected
+
+      //position of word
+      let popupPosition = { x: event.clientX, y: event.clientY };
+
+      //id of the word
+      let wordId = userSelection.anchorNode.parentElement.getAttribute('id');
+
+      //value of the word
+      let text = userSelection.anchorNode.parentElement.innerText;
+
+      //create object for the current word details
+      let selectedWord = { value: text, blogId: this.id, wordId: wordId , popupPosition: popupPosition};
+
+      //set selectedWordDetails
+      this.setSelectedWord(selectedWord);
+      
     },
+
     updateBlog() {
       this.$router.push(`/update-blog/${this.id}`);
     },
     deleteBlog() {
-      this.$store.dispatch("blogs/deleteBlog", this.id);
+      this.$store.dispatch("deleteBlog", this.id);
       this.$router.push("/blogs");
     },
   },

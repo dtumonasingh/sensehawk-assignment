@@ -21,10 +21,10 @@
 export default {
   computed: {
     highlights() {
-      return this.$store.getters["highlights/highlights"];
+      return this.$store.getters["highlights"];
     },
     hasHighlights() {
-      return this.$store.getters["highlights/hasHighlights"];
+      return this.$store.getters["hasHighlights"];
     },
   },
 };

@@ -8,4 +8,11 @@ export default {
   openClosePopup(context, payload) {
     context.commit("openClosePopup", payload);
   },
+  addHighlight(context) {
+    context.commit("addHighlight");
+    context.commit("addHighlightedWordToBlog");
+  },
+  setSelectedWord(context, payload) {
+    context.commit("setSelectedWord", payload);
+  },
 };

@@ -23,10 +23,10 @@ export default {
     },
     computed: {
         blogs() {
-            return this.$store.getters['blogs/blogs'];
+            return this.$store.getters['blogs'];
         },
         hasBlogs() {
-            return this.$store.getters['blogs/hasBlogs'];
+            return this.$store.getters['hasBlogs'];
         }
     }
 }
