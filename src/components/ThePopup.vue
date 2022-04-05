@@ -8,12 +8,8 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import { onClickOutside } from "@vueuse/core";
 
 export default {
-  components:{
-    onClickOutside,
-  },
   watch: {
     isPopupOpen() {  
       let popup = document.getElementById("popup");
