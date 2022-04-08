@@ -1,9 +1,9 @@
 <template>
   <div id="sidebar">
     <ul id="sidebar-actions">
-      <li><router-link to="/blogs"> <img :src="home" /> </router-link></li>
-      <li><router-link to="/highlights"> <img :src="highlights" /> </router-link></li>
-      <li><router-link to="/new-blog"> <img :src="create" /> </router-link></li>
+      <li><router-link to="/blogs"> <div class="tooltip"><img  :src="home" /> <span class="tooltiptext">blog</span></div></router-link></li>
+      <li><router-link to="/highlights"> <div class="tooltip"><img :src="highlights" /> <span class="tooltiptext">highlights</span></div></router-link></li>
+      <li><router-link to="/new-blog"> <div class="tooltip"><img :src="create" /> <span class="tooltiptext">create</span></div></router-link></li>
     </ul>
 
   </div>
@@ -53,6 +53,29 @@ export default ({
 
 li {
     padding-bottom:10px;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: fit-content;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px;
+  border-radius: 6px;
+  font-size: 12px;
+
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
 }
 
 
