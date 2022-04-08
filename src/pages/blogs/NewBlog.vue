@@ -116,6 +116,7 @@ textarea {
   margin: 5px 0px 5px 0px;
   width: 700px;
   font-family: "Roboto", sans-serif;
+  height: 200px;
 }
 
 button {
